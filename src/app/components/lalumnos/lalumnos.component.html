@@ -1,0 +1,56 @@
+<!--
+<div class="minimo">
+    <p-panel header="Listado de Alumnos"  >
+        <p-button label="Nuevo" size="small" [routerLink]="['alumno',0]"></p-button>
+    
+        <ul>
+            <li *ngFor="let al of RelacionAlumnos">
+                <div class="linea-al">
+                   <span> {{ al.tipoDocumento}} {{al.nroDocumento}}</span>
+                    <span> {{ al.nombres}} {{al.apellidos}} </span>
+                    <span> {{ al.email}} </span>        
+                    <span> {{ al.telefono}} </span>           
+                    <span> {{ al.nacionalidad }}</span>
+                    <span> 
+                        <a [routerLink]="['alumno', al.idAlumno]"> ver</a> <br>
+                        <a (click)="EliminarAlumno(al)"> Eliminar</a>
+                    </span>
+                    
+                </div>            
+            </li>
+        </ul>    
+    </p-panel>
+</div> -->
+
+
+<div class="minimo">
+<p-table #dt [value]="RelacionAlumnos" [exportFilename]="'alumnos'"  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Email</th>
+        <th>Telefono</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-alumno>
+      <tr>
+        <td> {{ alumno.tipoDocumento}} {{alumno.nroDocumento}}</td>
+        <td>{{ alumno.idAlumno }}</td>
+        <td>{{ alumno.nombres }} {{ alumno.apellidos }}</td>
+        <td>{{ alumno.email }}</td>
+        <td>{{ alumno.trelefono }}</td>
+        <td> 
+            <a [routerLink]="['alumno', alumno.idAlumno]"> ver</a> <br>
+            <a (click)="EliminarAlumno(alumno)"> Eliminar</a>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  
+  <button *ngIf="RelacionAlumnos" styleClass="p-button-success" pButton label="Exportar a Excel" (click)="exportarCSV()"></button>
+  <p-button label="Exportar CSV" (onClick)="dt.exportCSV()" styleClass="p-button-success" ></p-button>
+</div>
+
+
